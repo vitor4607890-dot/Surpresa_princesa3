@@ -1,15 +1,1015 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Surpresa Princesa 💜</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#08030d">
+<title>Para Minha Princesa 💜</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #08030d;
+    color: white;
+}
+
+/* =========================
+   INTRO
+========================= */
+
+#intro {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background:
+        radial-gradient(circle at center, #24102f 0%, #08030d 55%, #000 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    transition: opacity 2s ease, visibility 2s ease;
+}
+
+#intro.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.intro-stars {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.intro-star {
+    position: absolute;
+    color: #fff;
+    opacity: .7;
+    animation: twinkle 2s infinite alternate;
+}
+
+.intro-content {
+    position: relative;
+    z-index: 2;
+    padding: 25px;
+}
+
+.intro-small {
+    font-size: 12px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #d9b8ff;
+    margin-bottom: 25px;
+    opacity: .8;
+}
+
+#introPhrase {
+    min-height: 115px;
+    max-width: 850px;
+    font-size: clamp(30px, 8vw, 65px);
+    font-weight: 500;
+    line-height: 1.2;
+    text-shadow: 0 0 30px rgba(196,120,255,.55);
+    transition: opacity .7s ease, transform .7s ease;
+}
+
+.intro-sub {
+    margin-top: 25px;
+    font-size: 13px;
+    color: #cdb8d9;
+    letter-spacing: 2px;
+}
+
+.intro-heart {
+    margin: 0 auto 30px;
+    width: 45px;
+    height: 45px;
+    position: relative;
+    transform: rotate(-45deg);
+    background: #ff5fa2;
+    animation: heartBeat 1.4s infinite;
+    box-shadow: 0 0 30px rgba(255,95,162,.7);
+}
+
+.intro-heart::before,
+.intro-heart::after {
+    content: "";
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    background: #ff5fa2;
+    border-radius: 50%;
+}
+
+.intro-heart::before {
+    top: -22px;
+    left: 0;
+}
+
+.intro-heart::after {
+    top: 0;
+    left: 22px;
+}
+
+/* =========================
+   FUNDO
+========================= */
+
+#app {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(203,120,255,.22), transparent 28%),
+        radial-gradient(circle at 80% 75%, rgba(255,75,165,.16), transparent 30%),
+        linear-gradient(135deg, #16051e, #301046 48%, #120518);
+}
+
+.glow {
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: .35;
+    pointer-events: none;
+}
+
+.glow.one {
+    background: #b55cff;
+    top: -100px;
+    left: -100px;
+}
+
+.glow.two {
+    background: #ff4d9d;
+    right: -100px;
+    bottom: -100px;
+}
+
+.stars {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.star {
+    position: absolute;
+    color: white;
+    opacity: .5;
+    animation: twinkle 2.5s infinite alternate;
+}
+
+/* =========================
+   PÁGINAS
+========================= */
+
+.page {
+    position: absolute;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 25px;
+    overflow: hidden;
+}
+
+.page.active {
+    display: flex;
+    animation: pageIn 1s ease;
+}
+
+@keyframes pageIn {
+    from {
+        opacity: 0;
+        transform: scale(.96) translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* =========================
+   PÁGINA 1
+========================= */
+
+.eyebrow {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #dcb9ff;
+    margin-bottom: 12px;
+}
+
+.main-title {
+    font-size: clamp(32px, 9vw, 62px);
+    line-height: 1;
+    margin-bottom: 12px;
+}
+
+.script {
+    font-family: 'Great Vibes', cursive;
+    font-weight: 400;
+}
+
+.subtitle {
+    color: #ddcce7;
+    font-size: 15px;
+    max-width: 430px;
+    line-height: 1.7;
+}
+
+.big-heart {
+    position: relative;
+    width: 125px;
+    height: 125px;
+    margin: 55px 0 50px;
+    transform: rotate(-45deg);
+    background: linear-gradient(135deg, #ff4e99, #b92eff);
+    border-radius: 12px;
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.4),
+        0 0 50px rgba(255,75,160,.35);
+    animation: heartBeat 1.7s infinite;
+}
+
+.big-heart::before,
+.big-heart::after {
+    content: "";
+    position: absolute;
+    width: 125px;
+    height: 125px;
+    background: linear-gradient(135deg, #ff4e99, #b92eff);
+    border-radius: 50%;
+}
+
+.big-heart::before {
+    top: -62px;
+    left: 0;
+}
+
+.big-heart::after {
+    top: 0;
+    left: 62px;
+}
+
+.heart-label {
+    position: absolute;
+    z-index: 5;
+    width: 210px;
+    left: -42px;
+    top: 47px;
+    transform: rotate(45deg);
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+/* =========================
+   BOTÕES
+========================= */
+
+.button {
+    border: 0;
+    outline: 0;
+    padding: 14px 27px;
+    border-radius: 100px;
+    color: #5c1c78;
+    background: linear-gradient(135deg, #fff, #f1dfff);
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 15px;
+    box-shadow: 0 12px 30px rgba(0,0,0,.3);
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s;
+}
+
+.button:active {
+    transform: scale(.94);
+}
+
+.button:hover {
+    box-shadow: 0 15px 35px rgba(0,0,0,.4);
+}
+
+.arrow {
+    margin-left: 8px;
+}
+
+/* =========================
+   CARTA
+========================= */
+
+.letter-wrap {
+    width: min(92vw, 470px);
+}
+
+.letter {
+    position: relative;
+    background:
+        linear-gradient(135deg, #fffdf9, #f7eee1);
+    color: #43294c;
+    padding: 34px 28px;
+    border-radius: 4px;
+    box-shadow:
+        0 25px 60px rgba(0,0,0,.45),
+        0 3px 0 rgba(255,255,255,.3) inset;
+    transform: rotate(-1deg);
+}
+
+.letter::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-top: 50px solid #e7dccd;
+    border-right: 50px solid transparent;
+}
+
+.letter::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border-bottom: 45px solid #e7dccd;
+    border-left: 45px solid transparent;
+}
+
+.letter-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: 39px;
+    color: #8b3aa9;
+    margin-bottom: 18px;
+}
+
+.letter p {
+    font-size: 15px;
+    line-height: 1.8;
+    text-align: left;
+}
+
+.signature {
+    margin-top: 20px;
+    text-align: right;
+    font-family: 'Great Vibes', cursive;
+    font-size: 27px;
+    color: #8b3aa9;
+}
+
+.next-under {
+    margin-top: 25px;
+}
+
+/* =========================
+   PRESENTE
+========================= */
+
+.present-title {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.present-sub {
+    color: #d8c4df;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+.gift {
+    position: relative;
+    width: 170px;
+    height: 155px;
+    margin: 10px 0 40px;
+    cursor: pointer;
+    animation: floating 2.5s ease-in-out infinite;
+}
+
+.gift-box {
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+    width: 150px;
+    height: 105px;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #e94c9b, #ff78b6, #e94c9b);
+    box-shadow: 0 20px 35px rgba(0,0,0,.35);
+}
+
+.gift-box::before {
+    content: "";
+    position: absolute;
+    left: 62px;
+    width: 27px;
+    height: 100%;
+    background: #ffe0ed;
+}
+
+.gift-lid {
+    position: absolute;
+    z-index: 3;
+    top: 35px;
+    left: 0;
+    width: 170px;
+    height: 32px;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #f15da7, #ff8fc2, #f15da7);
+    transition: transform .8s ease;
+}
+
+.gift.open .gift-lid {
+    transform: translateY(-55px) rotate(-5deg);
+}
+
+.ribbon-vertical {
+    position: absolute;
+    z-index: 4;
+    left: 72px;
+    top: 35px;
+    width: 27px;
+    height: 125px;
+    background: #ffe0ed;
+}
+
+.bow {
+    position: absolute;
+    z-index: 5;
+    top: 5px;
+    left: 52px;
+    width: 65px;
+    height: 35px;
+}
+
+.bow::before,
+.bow::after {
+    content: "";
+    position: absolute;
+    width: 38px;
+    height: 30px;
+    background: #ffe0ed;
+    border-radius: 50% 50% 10% 50%;
+}
+
+.bow::before {
+    left: 0;
+    transform: rotate(25deg);
+}
+
+.bow::after {
+    right: 0;
+    transform: rotate(-25deg);
+}
+
+.gift-message {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: .7s ease;
+    font-family: 'Great Vibes', cursive;
+    font-size: 30px;
+    color: #f3c9ff;
+}
+
+.gift.open + .gift-message {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =========================
+   FINAL
+========================= */
+
+.final-card {
+    width: min(90vw, 500px);
+    padding: 35px 25px;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 28px;
+    background: rgba(255,255,255,.07);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 25px 70px rgba(0,0,0,.35);
+}
+
+.final-symbol {
+    font-size: 65px;
+    margin-bottom: 15px;
+    animation: heartBeat 1.5s infinite;
+}
+
+.final-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(42px, 12vw, 65px);
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+
+.final-text {
+    color: #e8d9ed;
+    line-height: 1.8;
+    font-size: 15px;
+}
+
+.month {
+    margin: 25px 0;
+    font-size: 14px;
+    letter-spacing: 3px;
+    color: #e4b8ff;
+    text-transform: uppercase;
+}
+
+/* =========================
+   CORAÇÕES
+========================= */
+
+.falling {
+    position: fixed;
+    top: -40px;
+    z-index: 100;
+    pointer-events: none;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes heartBeat {
+    0%, 100% {
+        transform: rotate(-45deg) scale(1);
+    }
+    50% {
+        transform: rotate(-45deg) scale(1.08);
+    }
+}
+
+@keyframes floating {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+@keyframes twinkle {
+    from {
+        opacity: .2;
+        transform: scale(.7);
+    }
+    to {
+        opacity: .9;
+        transform: scale(1.2);
+    }
+}
+
+@media (max-height: 700px) {
+    .big-heart {
+        width: 95px;
+        height: 95px;
+        margin: 30px 0 35px;
+    }
+
+    .big-heart::before,
+    .big-heart::after {
+        width: 95px;
+        height: 95px;
+    }
+
+    .big-heart::before {
+        top: -47px;
+    }
+
+    .big-heart::after {
+        left: 47px;
+    }
+
+    .heart-label {
+        top: 34px;
+        left: -58px;
+    }
+}
+</style>
 </head>
 
-<body style="background:#180021;color:white;text-align:center;font-family:Arial;padding-top:100px">
+<body>
 
-<h1>MINHA PRINCESA 💜</h1>
+<!-- =========================
+     INTRO
+========================= -->
 
-<p>Se você está vendo isso, deu certo! 😭💜</p>
+<div id="intro">
+
+    <div class="intro-stars">
+        <span class="intro-star" style="left:10%;top:15%;">✦</span>
+        <span class="intro-star" style="left:80%;top:20%;">✧</span>
+        <span class="intro-star" style="left:20%;top:75%;">✦</span>
+        <span class="intro-star" style="left:85%;top:75%;">✧</span>
+        <span class="intro-star" style="left:50%;top:12%;">·</span>
+        <span class="intro-star" style="left:65%;top:60%;">✦</span>
+    </div>
+
+    <div class="intro-content">
+
+        <div class="intro-small">
+            uma surpresa para você
+        </div>
+
+        <div class="intro-heart"></div>
+
+        <div id="introPhrase">
+            eu te amo
+        </div>
+
+        <div class="intro-sub">
+            espere só um pouquinho... 💜
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     APLICAÇÃO
+========================= -->
+
+<div id="app">
+
+    <div class="glow one"></div>
+    <div class="glow two"></div>
+
+    <div class="stars">
+        <span class="star" style="left:7%;top:18%;">✦</span>
+        <span class="star" style="left:88%;top:13%;">✧</span>
+        <span class="star" style="left:15%;top:83%;">✧</span>
+        <span class="star" style="left:92%;top:78%;">✦</span>
+        <span class="star" style="left:52%;top:8%;">·</span>
+        <span class="star" style="left:70%;top:88%;">✦</span>
+    </div>
+
+
+    <!-- PÁGINA 1 -->
+
+    <section class="page active" id="page1">
+
+        <div class="eyebrow">
+            para alguém muito especial
+        </div>
+
+        <h1 class="main-title">
+            Minha <span class="script">Princesa</span> 💜
+        </h1>
+
+        <p class="subtitle">
+            Eu preparei cada pedacinho dessa surpresa
+            pensando em você.
+        </p>
+
+        <div class="big-heart">
+            <div class="heart-label">
+                PRINCESA 💜
+            </div>
+        </div>
+
+        <button class="button" onclick="nextPage()">
+            Começar surpresa
+            <span class="arrow">→</span>
+        </button>
+
+    </section>
+
+
+    <!-- PÁGINA 2 -->
+
+    <section class="page" id="page2">
+
+        <div class="letter-wrap">
+
+            <div class="letter">
+
+                <div class="letter-title">
+                    Para minha princesa...
+                </div>
+
+                <p>
+                    Eu queria fazer algo especial para
+                    marcar esse nosso primeiro mês.
+                    <br><br>
+
+                    Talvez isso aqui seja só uma página
+                    na internet, mas cada detalhe foi
+                    pensado com muito carinho.
+                    <br><br>
+
+                    Obrigado por cada conversa, cada
+                    risada e cada momento que tornou
+                    esse primeiro mês tão especial.
+                    <br><br>
+
+                    Espero que ainda venham muitos
+                    momentos incríveis pela frente.
+                </p>
+
+                <div class="signature">
+                    com carinho, para você 💜
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="next-under">
+            <button class="button" onclick="nextPage()">
+                Continuar →
+            </button>
+        </div>
+
+    </section>
+
+
+    <!-- PÁGINA 3 -->
+
+    <section class="page" id="page3">
+
+        <h2 class="present-title">
+            Tem um presente aqui... 🎁
+        </h2>
+
+        <p class="present-sub">
+            Clique no presente para descobrir.
+        </p>
+
+        <div class="gift" id="gift" onclick="openGift()">
+
+            <div class="bow"></div>
+
+            <div class="gift-lid"></div>
+
+            <div class="ribbon-vertical"></div>
+
+            <div class="gift-box"></div>
+
+        </div>
+
+        <div class="gift-message" id="giftMessage">
+            feito especialmente para minha princesa 💜
+        </div>
+
+        <br>
+
+        <button class="button" onclick="nextPage()">
+            Próxima surpresa →
+        </button>
+
+    </section>
+
+
+    <!-- PÁGINA 4 -->
+
+    <section class="page" id="page4">
+
+        <div class="final-card">
+
+            <div class="final-symbol">
+                💜
+            </div>
+
+            <h2 class="final-title">
+                Minha princesa
+            </h2>
+
+            <div class="month">
+                nosso primeiro mês
+            </div>
+
+            <p class="final-text">
+                Um mês pode parecer pouco tempo,
+                mas já foi suficiente para criar
+                momentos que eu vou guardar com
+                muito carinho.
+                <br><br>
+
+                Quero continuar criando muitos
+                outros momentos especiais com você.
+            </p>
+
+        </div>
+
+        <br>
+
+        <button class="button" onclick="nextPage()">
+            Última página ✨
+        </button>
+
+    </section>
+
+
+    <!-- PÁGINA 5 -->
+
+    <section class="page" id="page5">
+
+        <div class="final-card">
+
+            <div class="final-symbol">
+                💗
+            </div>
+
+            <h2 class="final-title">
+                Eu te amo
+            </h2>
+
+            <p class="final-text">
+                Minha princesa, obrigado por fazer
+                parte dos meus dias.
+                <br><br>
+
+                Que esse seja apenas o começo de
+                muitos momentos felizes.
+                <br><br>
+
+                <strong>
+                    Feliz 1 mês. 💜
+                </strong>
+            </p>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<script>
+
+/* =========================
+   INTRO
+========================= */
+
+const phrases = [
+    "eu te amo",
+    "eu te amo muito",
+    "eu te amo, minha princesa",
+    "você é muito especial para mim",
+    "eu adoro cada momento com você",
+    "eu quero viver muitos momentos com você",
+    "obrigado por estar comigo",
+    "feliz nosso primeiro mês",
+    "minha princesa 💜"
+];
+
+let phraseIndex = 0;
+
+const introPhrase = document.getElementById("introPhrase");
+
+function changePhrase() {
+
+    introPhrase.style.opacity = "0";
+    introPhrase.style.transform = "translateY(15px)";
+
+    setTimeout(() => {
+
+        phraseIndex++;
+
+        if (phraseIndex >= phrases.length) {
+            phraseIndex = phrases.length - 1;
+        }
+
+        introPhrase.textContent = phrases[phraseIndex];
+
+        introPhrase.style.opacity = "1";
+        introPhrase.style.transform = "translateY(0)";
+
+    }, 650);
+}
+
+const phraseInterval = setInterval(() => {
+
+    if (phraseIndex < phrases.length - 1) {
+        changePhrase();
+    }
+
+}, 2300);
+
+
+/* =========================
+   SAIR DA INTRO
+========================= */
+
+setTimeout(() => {
+
+    clearInterval(phraseInterval);
+
+    document.getElementById("intro").classList.add("hidden");
+
+}, 22500);
+
+
+/* =========================
+   NAVEGAÇÃO
+========================= */
+
+let currentPage = 1;
+
+function nextPage() {
+
+    const current = document.getElementById(
+        "page" + currentPage
+    );
+
+    current.classList.remove("active");
+
+    currentPage++;
+
+    const next = document.getElementById(
+        "page" + currentPage
+    );
+
+    if (next) {
+        next.classList.add("active");
+    }
+
+    if (currentPage === 5) {
+        startHearts();
+    }
+}
+
+
+/* =========================
+   PRESENTE
+========================= */
+
+function openGift() {
+
+    const gift = document.getElementById("gift");
+
+    gift.classList.add("open");
+
+    document.getElementById("giftMessage").style.opacity = "1";
+}
+
+
+/* =========================
+   CORAÇÕES
+========================= */
+
+let heartsStarted = false;
+
+function createHeart() {
+
+    const heart = document.createElement("div");
+
+    heart.className = "falling";
+
+    const hearts = ["💜", "💗", "💕", "✨"];
+
+    heart.textContent =
+        hearts[Math.floor(Math.random() * hearts.length)];
+
+    heart.style.left =
+        Math.random() * 100 + "vw";
+
+    heart.style.fontSize =
+        (14 + Math.random() * 22) + "px";
+
+    heart.style.animationDuration =
+        (3 + Math.random() * 4) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 7500);
+}
+
+function startHearts() {
+
+    if (heartsStarted) return;
+
+    heartsStarted = true;
+
+    setInterval(createHeart, 300);
+}
+
+</script>
 
 </body>
 </html>
