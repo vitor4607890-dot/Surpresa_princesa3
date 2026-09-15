@@ -1,1018 +1,2466 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#08030d">
-<title>Para Minha Princesa 💜</title>
+<title>Minha Princesa 💜</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600;700&display=swap');
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-html, body {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    font-family:Arial,sans-serif;
+    background:#000;
+    color:white;
 }
 
-body {
-    font-family: 'Poppins', sans-serif;
-    background: #08030d;
-    color: white;
+body{
+    touch-action:manipulation;
 }
 
-/* =========================
-   INTRO
-========================= */
+/* ================= FUNDO ================= */
 
-#intro {
-    position: fixed;
-    inset: 0;
-    z-index: 99999;
+#stars{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:0;
+}
+
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:#fff;
+    border-radius:50%;
+    opacity:.7;
+    animation:twinkle 3s infinite ease-in-out;
+}
+
+@keyframes twinkle{
+    0%,100%{opacity:.2;transform:scale(.7)}
+    50%{opacity:1;transform:scale(1.5)}
+}
+
+/* ================= TELAS ================= */
+
+.screen{
+    position:absolute;
+    inset:0;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    overflow:hidden;
+}
+
+.screen.active{
+    display:flex;
+}
+
+/* ================= INTRO ================= */
+
+#intro{
+    background:#000;
+    flex-direction:column;
+    z-index:20;
+}
+
+.introText{
+    position:absolute;
+    font-size:clamp(25px,7vw,55px);
+    font-weight:bold;
+    color:#d9a7ff;
+    opacity:0;
+    text-shadow:0 0 20px #a94cff,0 0 50px #8b2be2;
+    animation:introWords 2.8s ease forwards;
+}
+
+.introText:nth-child(1){animation-delay:.5s}
+.introText:nth-child(2){animation-delay:3.2s}
+.introText:nth-child(3){animation-delay:5.9s}
+
+@keyframes introWords{
+    0%{opacity:0;transform:scale(.7)}
+    25%{opacity:1;transform:scale(1)}
+    70%{opacity:1}
+    100%{opacity:0;transform:scale(1.2)}
+}
+
+.princessIntro{
+    opacity:0;
+    font-size:clamp(32px,9vw,70px);
+    color:#e2b7ff;
+    text-shadow:0 0 20px #b54cff,0 0 60px #7a18d4;
+    animation:princessAppear 3s 8s forwards;
+}
+
+@keyframes princessAppear{
+    0%{opacity:0;transform:scale(.6)}
+    40%{opacity:1;transform:scale(1.1)}
+    70%{opacity:1}
+    100%{opacity:0;transform:scale(1.2)}
+}
+
+.musicIntroBtn{
+    position:absolute;
+    bottom:22%;
+    padding:18px 45px;
+    border:2px solid #d8a5ff;
+    border-radius:40px;
+    background:rgba(150,50,255,.18);
+    color:white;
+    font-size:30px;
+    font-weight:bold;
+    letter-spacing:2px;
+    cursor:pointer;
+    opacity:0;
+    animation:buttonAppear 2s 1.5s forwards;
+    box-shadow:0 0 30px rgba(180,80,255,.7);
+    text-shadow:0 0 12px #d8a5ff;
+}
+
+.musicIntroBtn:active{
+    transform:scale(.94);
+}
+
+.enterBtn{
+    position:absolute;
+    bottom:13%;
+    padding:15px 30px;
+    border:1px solid #d8a5ff;
+    border-radius:30px;
+    background:rgba(150,50,255,.15);
+    color:white;
+    font-size:17px;
+    cursor:pointer;
+    opacity:0;
+    animation:buttonAppear 2s 10s forwards;
+    box-shadow:0 0 20px rgba(180,80,255,.5);
+}
+
+@keyframes buttonAppear{
+    to{opacity:1}
+}
+
+/* ================= CORAÇÃO ================= */
+
+#heartScreen{
     background:
-        radial-gradient(circle at center, #24102f 0%, #08030d 55%, #000 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    overflow: hidden;
-    transition: opacity 2s ease, visibility 2s ease;
+        radial-gradient(circle at center,#21002e 0%,#09000d 45%,#000 100%);
+    flex-direction:column;
 }
 
-#intro.hidden {
-    opacity: 0;
-    visibility: hidden;
+#heartCanvas{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:2;
+    cursor:pointer;
+    touch-action:none;
 }
 
-.intro-stars {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
+.heartTitle{
+    position:absolute;
+    top:9%;
+    z-index:5;
+    font-size:clamp(20px,5vw,35px);
+    color:#e6c2ff;
+    text-shadow:0 0 15px #a832ff;
+    transition:.5s;
 }
 
-.intro-star {
-    position: absolute;
-    color: #fff;
-    opacity: .7;
-    animation: twinkle 2s infinite alternate;
+.heartHint{
+    position:absolute;
+    bottom:10%;
+    z-index:6;
+    color:#dca7ff;
+    font-size:18px;
+    animation:hintPulse 1.7s infinite;
+    transition:.5s;
+    pointer-events:none;
 }
 
-.intro-content {
-    position: relative;
-    z-index: 2;
-    padding: 25px;
+@keyframes hintPulse{
+    0%,100%{opacity:.45;transform:scale(1)}
+    50%{opacity:1;transform:scale(1.08)}
 }
 
-.intro-small {
-    font-size: 12px;
-    letter-spacing: 5px;
-    text-transform: uppercase;
-    color: #d9b8ff;
-    margin-bottom: 25px;
-    opacity: .8;
-}
+/* ================= CARTA ================= */
 
-#introPhrase {
-    min-height: 115px;
-    max-width: 850px;
-    font-size: clamp(30px, 8vw, 65px);
-    font-weight: 500;
-    line-height: 1.2;
-    text-shadow: 0 0 30px rgba(196,120,255,.55);
-    transition: opacity .7s ease, transform .7s ease;
-}
-
-.intro-sub {
-    margin-top: 25px;
-    font-size: 13px;
-    color: #cdb8d9;
-    letter-spacing: 2px;
-}
-
-.intro-heart {
-    margin: 0 auto 30px;
-    width: 45px;
-    height: 45px;
-    position: relative;
-    transform: rotate(-45deg);
-    background: #ff5fa2;
-    animation: heartBeat 1.4s infinite;
-    box-shadow: 0 0 30px rgba(255,95,162,.7);
-}
-
-.intro-heart::before,
-.intro-heart::after {
-    content: "";
-    position: absolute;
-    width: 45px;
-    height: 45px;
-    background: #ff5fa2;
-    border-radius: 50%;
-}
-
-.intro-heart::before {
-    top: -22px;
-    left: 0;
-}
-
-.intro-heart::after {
-    top: 0;
-    left: 22px;
-}
-
-/* =========================
-   FUNDO
-========================= */
-
-#app {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
+#letterScreen{
     background:
-        radial-gradient(circle at 20% 20%, rgba(203,120,255,.22), transparent 28%),
-        radial-gradient(circle at 80% 75%, rgba(255,75,165,.16), transparent 30%),
-        linear-gradient(135deg, #16051e, #301046 48%, #120518);
+        radial-gradient(circle at center,#270033,#08000d 65%,#000);
+    flex-direction:column;
+    padding:25px;
 }
 
-.glow {
-    position: absolute;
-    width: 280px;
-    height: 280px;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: .35;
-    pointer-events: none;
-}
-
-.glow.one {
-    background: #b55cff;
-    top: -100px;
-    left: -100px;
-}
-
-.glow.two {
-    background: #ff4d9d;
-    right: -100px;
-    bottom: -100px;
-}
-
-.stars {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-}
-
-.star {
-    position: absolute;
-    color: white;
-    opacity: .5;
-    animation: twinkle 2.5s infinite alternate;
-}
-
-/* =========================
-   PÁGINAS
-========================= */
-
-.page {
-    position: absolute;
-    inset: 0;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    text-align: center;
-    padding: 25px;
-    overflow: hidden;
-}
-
-.page.active {
-    display: flex;
-    animation: pageIn 1s ease;
-}
-
-@keyframes pageIn {
-    from {
-        opacity: 0;
-        transform: scale(.96) translateY(15px);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
-}
-
-/* =========================
-   PÁGINA 1
-========================= */
-
-.eyebrow {
-    font-size: 11px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: #dcb9ff;
-    margin-bottom: 12px;
-}
-
-.main-title {
-    font-size: clamp(32px, 9vw, 62px);
-    line-height: 1;
-    margin-bottom: 12px;
-}
-
-.script {
-    font-family: 'Great Vibes', cursive;
-    font-weight: 400;
-}
-
-.subtitle {
-    color: #ddcce7;
-    font-size: 15px;
-    max-width: 430px;
-    line-height: 1.7;
-}
-
-.big-heart {
-    position: relative;
-    width: 125px;
-    height: 125px;
-    margin: 55px 0 50px;
-    transform: rotate(-45deg);
-    background: linear-gradient(135deg, #ff4e99, #b92eff);
-    border-radius: 12px;
+.paper{
+    position:relative;
+    width:min(90%,520px);
+    max-height:78vh;
+    overflow:auto;
+    padding:35px 28px;
+    background:#f8edff;
+    color:#421050;
+    border-radius:5px;
     box-shadow:
-        0 20px 50px rgba(0,0,0,.4),
-        0 0 50px rgba(255,75,160,.35);
-    animation: heartBeat 1.7s infinite;
+        0 0 30px rgba(210,120,255,.6),
+        10px 15px 35px rgba(0,0,0,.7);
+    transform:rotate(-1deg) scaleY(0);
+    transform-origin:top;
+    transition:transform 1.5s cubic-bezier(.2,.8,.2,1);
 }
 
-.big-heart::before,
-.big-heart::after {
-    content: "";
-    position: absolute;
-    width: 125px;
-    height: 125px;
-    background: linear-gradient(135deg, #ff4e99, #b92eff);
-    border-radius: 50%;
+#letterScreen.active .paper{
+    transform:rotate(-1deg) scaleY(1);
 }
 
-.big-heart::before {
-    top: -62px;
-    left: 0;
+.paper:before,
+.paper:after{
+    content:"";
+    position:absolute;
+    width:70px;
+    height:20px;
+    background:rgba(210,170,230,.25);
+    transform:rotate(-5deg);
 }
 
-.big-heart::after {
-    top: 0;
-    left: 62px;
+.paper:before{
+    top:15px;
+    left:-20px;
 }
 
-.heart-label {
-    position: absolute;
-    z-index: 5;
-    width: 210px;
-    left: -42px;
-    top: 47px;
-    transform: rotate(45deg);
-    font-size: 17px;
-    font-weight: 700;
-    letter-spacing: 2px;
+.paper:after{
+    bottom:20px;
+    right:-20px;
+    transform:rotate(8deg);
 }
 
-/* =========================
-   BOTÕES
-========================= */
-
-.button {
-    border: 0;
-    outline: 0;
-    padding: 14px 27px;
-    border-radius: 100px;
-    color: #5c1c78;
-    background: linear-gradient(135deg, #fff, #f1dfff);
-    font-family: inherit;
-    font-weight: 600;
-    font-size: 15px;
-    box-shadow: 0 12px 30px rgba(0,0,0,.3);
-    cursor: pointer;
-    transition: transform .2s, box-shadow .2s;
+.paper h2{
+    margin-bottom:20px;
+    color:#7c219f;
 }
 
-.button:active {
-    transform: scale(.94);
+.paper p{
+    line-height:1.7;
+    font-size:16px;
+    margin-bottom:15px;
 }
 
-.button:hover {
-    box-shadow: 0 15px 35px rgba(0,0,0,.4);
+.nextBtn{
+    margin-top:20px;
+    padding:12px 25px;
+    border:none;
+    border-radius:25px;
+    background:#9c3dcc;
+    color:white;
+    cursor:pointer;
+    box-shadow:0 0 20px rgba(180,50,255,.5);
 }
 
-.arrow {
-    margin-left: 8px;
-}
+/* ================= UNIVERSO ================= */
 
-/* =========================
-   CARTA
-========================= */
-
-.letter-wrap {
-    width: min(92vw, 470px);
-}
-
-.letter {
-    position: relative;
+#universe{
     background:
-        linear-gradient(135deg, #fffdf9, #f7eee1);
-    color: #43294c;
-    padding: 34px 28px;
-    border-radius: 4px;
+        radial-gradient(circle at 50% 40%,#300044,#050008 65%,#000);
+    flex-direction:column;
+}
+
+.universeTitle{
+    position:absolute;
+    top:7%;
+    font-size:clamp(25px,7vw,45px);
+    color:#e3b5ff;
+    text-shadow:0 0 20px #a32fff;
+    z-index:5;
+}
+
+.planet{
+    position:absolute;
+    border-radius:50%;
+    cursor:pointer;
+    box-shadow:0 0 25px currentColor;
+    animation:planetFloat 5s infinite ease-in-out;
+    z-index:3;
+}
+
+.planet1{
+    width:80px;
+    height:80px;
+    background:#bd6cff;
+    left:17%;
+    top:30%;
+}
+
+.planet2{
+    width:110px;
+    height:110px;
+    background:#e0a0ff;
+    right:15%;
+    top:40%;
+}
+
+.planet3{
+    width:60px;
+    height:60px;
+    background:#8242c2;
+    left:45%;
+    bottom:20%;
+}
+
+@keyframes planetFloat{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-18px)}
+}
+
+.universeHint{
+    position:absolute;
+    bottom:8%;
+    color:#dba5ff;
+    z-index:6;
+    animation:hintPulse 1.8s infinite;
+}
+
+.asteroid{
+    position:absolute;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#aaa;
+    box-shadow:0 0 10px #fff;
+    animation:asteroidFly linear infinite;
+    z-index:2;
+}
+
+@keyframes asteroidFly{
+    from{
+        transform:translate(110vw,-20vh) rotate(0deg);
+        opacity:0;
+    }
+    15%{opacity:1}
+    to{
+        transform:translate(-110vw,110vh) rotate(720deg);
+        opacity:0;
+    }
+}
+
+/* ================= CONSTELAÇÃO ================= */
+
+#constellation{
+    background:
+        radial-gradient(circle at center,#32004d 0%,#0b0013 48%,#000 100%);
+    flex-direction:column;
+}
+
+.constellationTitle{
+    position:absolute;
+    top:7%;
+    z-index:10;
+    color:#e7c2ff;
+    font-size:clamp(25px,7vw,43px);
+    text-shadow:
+        0 0 10px #c05cff,
+        0 0 30px #a62eff,
+        0 0 60px #7514b5;
+    animation:constellationTitleGlow 2.5s infinite;
+}
+
+@keyframes constellationTitleGlow{
+    0%,100%{
+        text-shadow:
+            0 0 10px #c05cff,
+            0 0 30px #a62eff;
+    }
+    50%{
+        text-shadow:
+            0 0 20px #fff,
+            0 0 45px #c35cff,
+            0 0 80px #9d20e0;
+    }
+}
+
+#constellationCanvas{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    cursor:pointer;
+    z-index:2;
+    touch-action:none;
+}
+
+.constellationHint{
+    position:absolute;
+    bottom:9%;
+    z-index:10;
+    color:#ddaaff;
+    font-size:14px;
+    animation:hintPulse 1.8s infinite;
+    pointer-events:none;
+}
+
+/* ================= ALIEN ================= */
+
+.alien{
+    position:absolute;
+    left:-15%;
+    top:25%;
+    z-index:15;
+    font-size:40px;
+    cursor:pointer;
+    filter:
+        drop-shadow(0 0 10px #c85cff)
+        drop-shadow(0 0 25px #8d20d4);
+    animation:alienFly 14s linear infinite;
+    transition:
+        left 1s ease,
+        top 1s ease,
+        transform 1s ease;
+}
+
+.alienBubble{
+    position:absolute;
+    left:45px;
+    top:-15px;
+    width:160px;
+    padding:9px 12px;
+    border-radius:15px;
+    background:rgba(35,0,50,.9);
+    border:1px solid #c968ff;
+    color:#f0d7ff;
+    font-size:13px;
+    font-weight:bold;
+    text-align:center;
+    box-shadow:0 0 15px rgba(190,70,255,.5);
+    animation:alienBubblePulse 1.4s infinite;
+}
+
+@keyframes alienBubblePulse{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.07)}
+}
+
+@keyframes alienFly{
+    0%{
+        left:-15%;
+        top:20%;
+        opacity:0;
+        transform:rotate(-10deg);
+    }
+    10%{opacity:1}
+    35%{
+        left:30%;
+        top:28%;
+    }
+    60%{
+        left:58%;
+        top:60%;
+    }
+    85%{
+        left:78%;
+        top:30%;
+        opacity:1;
+    }
+    100%{
+        left:115%;
+        top:65%;
+        opacity:0;
+        transform:rotate(15deg);
+    }
+}
+
+.alien.caught{
+    animation:none;
+    left:50%;
+    top:43%;
+    transform:
+        translate(-50%,-50%)
+        scale(1.6);
+    font-size:55px;
+    filter:
+        drop-shadow(0 0 15px #fff)
+        drop-shadow(0 0 35px #d35cff)
+        drop-shadow(0 0 70px #8d20d4);
+}
+
+.alien.caught .alienBubble{
+    display:none;
+}
+
+/* ================= MENSAGEM ALIEN ================= */
+
+.alienMessage{
+    position:absolute;
+    inset:0;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    background:rgba(0,0,0,.75);
+    backdrop-filter:blur(6px);
+    z-index:30;
+}
+
+.alienMessage.show{
+    display:flex;
+    animation:alienMessageIn .5s ease;
+}
+
+.alienMessageBox{
+    width:min(86%,430px);
+    padding:30px;
+    border-radius:25px;
+    text-align:center;
+    color:#f1d8ff;
+    font-size:20px;
+    line-height:1.5;
+    background:
+        radial-gradient(
+            circle,
+            rgba(110,20,155,.95),
+            rgba(20,0,30,.98)
+        );
+    border:1px solid #d071ff;
     box-shadow:
-        0 25px 60px rgba(0,0,0,.45),
-        0 3px 0 rgba(255,255,255,.3) inset;
-    transform: rotate(-1deg);
+        0 0 30px rgba(190,70,255,.8),
+        0 0 100px rgba(120,20,190,.4);
 }
 
-.letter::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    border-top: 50px solid #e7dccd;
-    border-right: 50px solid transparent;
+.alienMessageBox button{
+    margin-top:20px;
+    padding:11px 22px;
+    border:none;
+    border-radius:22px;
+    background:#ad4ce0;
+    color:white;
+    font-size:15px;
+    cursor:pointer;
+    box-shadow:0 0 15px rgba(200,80,255,.5);
 }
 
-.letter::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    border-bottom: 45px solid #e7dccd;
-    border-left: 45px solid transparent;
-}
-
-.letter-title {
-    font-family: 'Great Vibes', cursive;
-    font-size: 39px;
-    color: #8b3aa9;
-    margin-bottom: 18px;
-}
-
-.letter p {
-    font-size: 15px;
-    line-height: 1.8;
-    text-align: left;
-}
-
-.signature {
-    margin-top: 20px;
-    text-align: right;
-    font-family: 'Great Vibes', cursive;
-    font-size: 27px;
-    color: #8b3aa9;
-}
-
-.next-under {
-    margin-top: 25px;
-}
-
-/* =========================
-   PRESENTE
-========================= */
-
-.present-title {
-    font-size: 28px;
-    margin-bottom: 8px;
-}
-
-.present-sub {
-    color: #d8c4df;
-    font-size: 14px;
-    margin-bottom: 30px;
-}
-
-.gift {
-    position: relative;
-    width: 170px;
-    height: 155px;
-    margin: 10px 0 40px;
-    cursor: pointer;
-    animation: floating 2.5s ease-in-out infinite;
-}
-
-.gift-box {
-    position: absolute;
-    bottom: 0;
-    left: 10px;
-    width: 150px;
-    height: 105px;
-    border-radius: 5px;
-    background: linear-gradient(90deg, #e94c9b, #ff78b6, #e94c9b);
-    box-shadow: 0 20px 35px rgba(0,0,0,.35);
-}
-
-.gift-box::before {
-    content: "";
-    position: absolute;
-    left: 62px;
-    width: 27px;
-    height: 100%;
-    background: #ffe0ed;
-}
-
-.gift-lid {
-    position: absolute;
-    z-index: 3;
-    top: 35px;
-    left: 0;
-    width: 170px;
-    height: 32px;
-    border-radius: 5px;
-    background: linear-gradient(90deg, #f15da7, #ff8fc2, #f15da7);
-    transition: transform .8s ease;
-}
-
-.gift.open .gift-lid {
-    transform: translateY(-55px) rotate(-5deg);
-}
-
-.ribbon-vertical {
-    position: absolute;
-    z-index: 4;
-    left: 72px;
-    top: 35px;
-    width: 27px;
-    height: 125px;
-    background: #ffe0ed;
-}
-
-.bow {
-    position: absolute;
-    z-index: 5;
-    top: 5px;
-    left: 52px;
-    width: 65px;
-    height: 35px;
-}
-
-.bow::before,
-.bow::after {
-    content: "";
-    position: absolute;
-    width: 38px;
-    height: 30px;
-    background: #ffe0ed;
-    border-radius: 50% 50% 10% 50%;
-}
-
-.bow::before {
-    left: 0;
-    transform: rotate(25deg);
-}
-
-.bow::after {
-    right: 0;
-    transform: rotate(-25deg);
-}
-
-.gift-message {
-    opacity: 0;
-    transform: translateY(10px);
-    transition: .7s ease;
-    font-family: 'Great Vibes', cursive;
-    font-size: 30px;
-    color: #f3c9ff;
-}
-
-.gift.open + .gift-message {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* =========================
-   FINAL
-========================= */
-
-.final-card {
-    width: min(90vw, 500px);
-    padding: 35px 25px;
-    border: 1px solid rgba(255,255,255,.12);
-    border-radius: 28px;
-    background: rgba(255,255,255,.07);
-    backdrop-filter: blur(12px);
-    box-shadow: 0 25px 70px rgba(0,0,0,.35);
-}
-
-.final-symbol {
-    font-size: 65px;
-    margin-bottom: 15px;
-    animation: heartBeat 1.5s infinite;
-}
-
-.final-title {
-    font-family: 'Great Vibes', cursive;
-    font-size: clamp(42px, 12vw, 65px);
-    font-weight: 400;
-    margin-bottom: 10px;
-}
-
-.final-text {
-    color: #e8d9ed;
-    line-height: 1.8;
-    font-size: 15px;
-}
-
-.month {
-    margin: 25px 0;
-    font-size: 14px;
-    letter-spacing: 3px;
-    color: #e4b8ff;
-    text-transform: uppercase;
-}
-
-/* =========================
-   CORAÇÕES
-========================= */
-
-.falling {
-    position: fixed;
-    top: -40px;
-    z-index: 100;
-    pointer-events: none;
-    animation: fall linear forwards;
-}
-
-@keyframes fall {
-    to {
-        transform: translateY(110vh) rotate(360deg);
-        opacity: 0;
+@keyframes alienMessageIn{
+    from{
+        opacity:0;
+        transform:scale(.65);
+    }
+    to{
+        opacity:1;
+        transform:scale(1);
     }
 }
 
-@keyframes heartBeat {
-    0%, 100% {
-        transform: rotate(-45deg) scale(1);
+/* ================= PRESENTE ================= */
+
+#giftScreen{
+    background:
+        radial-gradient(circle,#330044,#09000e 70%,#000);
+    flex-direction:column;
+}
+
+/* corações da surpresa */
+
+.giftHeart{
+    position:absolute;
+    top:-40px;
+    color:#e5b0ff;
+    font-size:20px;
+    pointer-events:none;
+    z-index:12;
+    text-shadow:
+        0 0 8px #c45cff,
+        0 0 20px #9d25d9;
+    animation:heartFall linear forwards;
+}
+
+@keyframes heartFall{
+    0%{
+        transform:
+            translateY(-40px)
+            translateX(0)
+            rotate(0deg)
+            scale(.6);
+        opacity:0;
     }
-    50% {
-        transform: rotate(-45deg) scale(1.08);
+
+    10%{
+        opacity:1;
+    }
+
+    50%{
+        transform:
+            translateY(50vh)
+            translateX(var(--drift))
+            rotate(180deg)
+            scale(1);
+        opacity:1;
+    }
+
+    100%{
+        transform:
+            translateY(115vh)
+            translateX(calc(var(--drift) * -1))
+            rotate(360deg)
+            scale(.7);
+        opacity:0;
     }
 }
 
-@keyframes floating {
-    0%, 100% {
-        transform: translateY(0);
+/* frase central */
+
+.giftLoveMessage{
+    position:absolute;
+    left:50%;
+    top:48%;
+    transform:translate(-50%,-50%) scale(.5);
+    width:min(90%,650px);
+    z-index:11;
+    pointer-events:none;
+    opacity:0;
+    color:#f0d7ff;
+    font-size:clamp(25px,7vw,48px);
+    font-weight:bold;
+    line-height:1.3;
+    text-shadow:
+        0 0 10px #d17aff,
+        0 0 30px #a42cff,
+        0 0 70px #7917b8;
+}
+
+.giftLoveMessage.show{
+    animation:loveMessageAppear 2s ease forwards;
+}
+
+@keyframes loveMessageAppear{
+    0%{
+        opacity:0;
+        transform:translate(-50%,-50%) scale(.5);
+        filter:blur(10px);
     }
-    50% {
-        transform: translateY(-12px);
+
+    45%{
+        opacity:1;
+        transform:translate(-50%,-50%) scale(1.08);
+        filter:blur(0);
+    }
+
+    70%{
+        transform:translate(-50%,-50%) scale(1);
+    }
+
+    100%{
+        opacity:1;
+        transform:translate(-50%,-50%) scale(1);
     }
 }
 
-@keyframes twinkle {
-    from {
-        opacity: .2;
-        transform: scale(.7);
-    }
-    to {
-        opacity: .9;
-        transform: scale(1.2);
-    }
+.gift{
+    position:relative;
+    width:150px;
+    height:130px;
+    margin-top:40px;
+    cursor:pointer;
+    z-index:10;
 }
 
-@media (max-height: 700px) {
-    .big-heart {
-        width: 95px;
-        height: 95px;
-        margin: 30px 0 35px;
-    }
+.giftBox{
+    position:absolute;
+    bottom:0;
+    width:150px;
+    height:100px;
+    background:#a43bd0;
+    border-radius:5px;
+    box-shadow:0 0 30px rgba(180,70,255,.5);
+}
 
-    .big-heart::before,
-    .big-heart::after {
-        width: 95px;
-        height: 95px;
-    }
+.giftBox:before{
+    content:"";
+    position:absolute;
+    left:62px;
+    width:25px;
+    height:100%;
+    background:#e0a1ff;
+}
 
-    .big-heart::before {
-        top: -47px;
-    }
+.giftLid{
+    position:absolute;
+    top:0;
+    left:-8px;
+    width:166px;
+    height:35px;
+    background:#c45af0;
+    border-radius:6px;
+    transition:transform 1s;
+    transform-origin:left;
+    z-index:3;
+}
 
-    .big-heart::after {
-        left: 47px;
-    }
+.giftRibbon{
+    position:absolute;
+    left:65px;
+    top:-25px;
+    width:20px;
+    height:35px;
+    border:6px solid #e0a1ff;
+    border-bottom:none;
+    border-radius:50% 50% 0 0;
+}
 
-    .heart-label {
-        top: 34px;
-        left: -58px;
-    }
+.gift.open .giftLid{
+    transform:rotate(-35deg) translateY(-50px);
+}
+
+.tulip{
+    position:absolute;
+    left:58px;
+    bottom:55px;
+    font-size:65px;
+    transform:translateY(80px) scale(.5);
+    opacity:0;
+    transition:1.5s;
+    z-index:2;
+}
+
+.gift.open .tulip{
+    transform:translateY(-40px) scale(1);
+    opacity:1;
+}
+
+.giftHint{
+    margin-top:45px;
+    color:#dca5ff;
+    animation:hintPulse 1.8s infinite;
+}
+
+/* esconder dica depois de abrir */
+
+.gift.open + .giftHint{
+    opacity:0;
+}
+
+/* ================= FINAL ================= */
+
+#finalScreen{
+    background:
+        radial-gradient(circle at center,#320044,#07000c 65%,#000);
+    flex-direction:column;
+    padding:30px;
+}
+
+.finalTitle{
+    font-size:clamp(30px,9vw,65px);
+    color:#e7bdff;
+    text-shadow:0 0 20px #b23cff,0 0 60px #8d20d4;
+    animation:finalGlow 2.5s infinite;
+}
+
+.finalText{
+    margin-top:20px;
+    max-width:600px;
+    line-height:1.8;
+    color:#f0dcff;
+    font-size:17px;
+}
+
+@keyframes finalGlow{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.05)}
+}
+
+.secretStar{
+    position:absolute;
+    right:8%;
+    top:12%;
+    font-size:25px;
+    cursor:pointer;
+    animation:secretPulse 2s infinite;
+}
+
+@keyframes secretPulse{
+    0%,100%{opacity:.3;transform:scale(.8)}
+    50%{opacity:1;transform:scale(1.2)}
+}
+
+.secretMessage{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.92);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+    z-index:30;
+}
+
+.secretMessage.show{
+    display:flex;
+}
+
+.secretBox{
+    max-width:500px;
+    color:#e8c2ff;
+    font-size:21px;
+    line-height:1.7;
+}
+
+.meteorText{
+    position:absolute;
+    bottom:3%;
+    left:50%;
+    transform:translateX(-50%);
+    color:rgba(225,180,255,.45);
+    font-size:11px;
+    white-space:nowrap;
+    animation:meteorHint 5s infinite;
+}
+
+@keyframes meteorHint{
+    0%,70%,100%{opacity:0}
+    80%,90%{opacity:1}
+}
+
+.musicBtn{
+    margin-top:25px;
+    padding:13px 23px;
+    border-radius:25px;
+    border:1px solid #dba0ff;
+    background:rgba(170,60,230,.2);
+    color:white;
+    cursor:pointer;
+    box-shadow:0 0 20px rgba(180,70,255,.4);
 }
 </style>
 </head>
 
 <body>
 
-<!-- =========================
-     INTRO
-========================= -->
+<div id="stars"></div>
 
-<div id="intro">
+<!-- ================= INTRO ================= -->
 
-    <div class="intro-stars">
-        <span class="intro-star" style="left:10%;top:15%;">✦</span>
-        <span class="intro-star" style="left:80%;top:20%;">✧</span>
-        <span class="intro-star" style="left:20%;top:75%;">✦</span>
-        <span class="intro-star" style="left:85%;top:75%;">✧</span>
-        <span class="intro-star" style="left:50%;top:12%;">·</span>
-        <span class="intro-star" style="left:65%;top:60%;">✦</span>
+<section id="intro" class="screen active">
+
+    <div class="introText">eu te amo</div>
+    <div class="introText">eu te quero</div>
+    <div class="introText">você é só minha 💜</div>
+
+    <div class="princessIntro">
+        minha princesa 💜
     </div>
 
-    <div class="intro-content">
+    <button
+        class="musicIntroBtn"
+        onclick="window.open(
+        'https://open.spotify.com/track/6fPALIGFkjmlHKuiiZLRl6?si=G7Og25WcTbWGmBRZvtVrkg&utm_source=copy-link&rowId=258e12b2e57f2033',
+        '_blank'
+        )"
+    >
+        TOCA EM MIM 💜
+    </button>
 
-        <div class="intro-small">
-            uma surpresa para você
-        </div>
+    <button class="enterBtn" onclick="goTo(1)">
+        entrar na surpresa ✨
+    </button>
 
-        <div class="intro-heart"></div>
+</section>
 
-        <div id="introPhrase">
-            eu te amo
-        </div>
 
-        <div class="intro-sub">
-            espere só um pouquinho... 💜
-        </div>
+<!-- ================= CORAÇÃO ================= -->
 
+<section id="heartScreen" class="screen">
+
+    <h2 class="heartTitle" id="heartTitle">
+        isso aqui é só o começo...
+    </h2>
+
+    <canvas id="heartCanvas"></canvas>
+
+    <div class="heartHint" id="heartHint">
+        toque no coração 💜
     </div>
 
-</div>
+</section>
 
 
-<!-- =========================
-     APLICAÇÃO
-========================= -->
+<!-- ================= CARTA ================= -->
 
-<div id="app">
+<section id="letterScreen" class="screen">
 
-    <div class="glow one"></div>
-    <div class="glow two"></div>
+    <div class="paper">
 
-    <div class="stars">
-        <span class="star" style="left:7%;top:18%;">✦</span>
-        <span class="star" style="left:88%;top:13%;">✧</span>
-        <span class="star" style="left:15%;top:83%;">✧</span>
-        <span class="star" style="left:92%;top:78%;">✦</span>
-        <span class="star" style="left:52%;top:8%;">·</span>
-        <span class="star" style="left:70%;top:88%;">✦</span>
-    </div>
-
-
-    <!-- PÁGINA 1 -->
-
-    <section class="page active" id="page1">
-
-        <div class="eyebrow">
-            para alguém muito especial
-        </div>
-
-        <h1 class="main-title">
-            Minha <span class="script">Princesa</span> 💜
-        </h1>
-
-        <p class="subtitle">
-            Eu preparei cada pedacinho dessa surpresa
-            pensando em você.
-        </p>
-
-        <div class="big-heart">
-            <div class="heart-label">
-                PRINCESA 💜
-            </div>
-        </div>
-
-        <button class="button" onclick="nextPage()">
-            Começar surpresa
-            <span class="arrow">→</span>
-        </button>
-
-    </section>
-
-
-    <!-- PÁGINA 2 -->
-
-    <section class="page" id="page2">
-
-        <div class="letter-wrap">
-
-            <div class="letter">
-
-                <div class="letter-title">
-                    Para minha princesa...
-                </div>
-
-                <p>
-                    Eu queria fazer algo especial para
-                    marcar esse nosso primeiro mês.
-                    <br><br>
-
-                    Talvez isso aqui seja só uma página
-                    na internet, mas cada detalhe foi
-                    pensado com muito carinho.
-                    <br><br>
-
-                    Obrigado por cada conversa, cada
-                    risada e cada momento que tornou
-                    esse primeiro mês tão especial.
-                    <br><br>
-
-                    Espero que ainda venham muitos
-                    momentos incríveis pela frente.
-                </p>
-
-                <div class="signature">
-                    com carinho, para você 💜
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="next-under">
-            <button class="button" onclick="nextPage()">
-                Continuar →
-            </button>
-        </div>
-
-    </section>
-
-
-    <!-- PÁGINA 3 -->
-
-    <section class="page" id="page3">
-
-        <h2 class="present-title">
-            Tem um presente aqui... 🎁
+        <h2>
+            Para minha princesa 💜
         </h2>
 
-        <p class="present-sub">
-            Clique no presente para descobrir.
+        <p>
+            Talvez eu não consiga colocar em palavras tudo que sinto,
+            mas eu queria fazer alguma coisa diferente pra você.
         </p>
 
-        <div class="gift" id="gift" onclick="openGift()">
+        <p>
+            Esse primeiro mês pode parecer pouco para algumas pessoas,
+            mas pra mim ele significa muito.
+        </p>
 
-            <div class="bow"></div>
+        <p>
+            Cada conversa, cada risada, cada momento e até as pequenas
+            coisas fizeram esse mês ser especial.
+        </p>
 
-            <div class="gift-lid"></div>
+        <p>
+            Eu só quero que você saiba que gosto muito de ter você
+            comigo e espero que esse seja só o começo da nossa história.
+        </p>
 
-            <div class="ribbon-vertical"></div>
+        <p>
+            Feliz 1 mês, minha princesa. 💜
+        </p>
 
-            <div class="gift-box"></div>
-
-        </div>
-
-        <div class="gift-message" id="giftMessage">
-            feito especialmente para minha princesa 💜
-        </div>
-
-        <br>
-
-        <button class="button" onclick="nextPage()">
-            Próxima surpresa →
+        <button class="nextBtn" onclick="goTo(3)">
+            nosso universo 🌌
         </button>
 
-    </section>
+    </div>
+
+</section>
 
 
-    <!-- PÁGINA 4 -->
+<!-- ================= UNIVERSO ================= -->
 
-    <section class="page" id="page4">
+<section id="universe" class="screen">
 
-        <div class="final-card">
+    <h2 class="universeTitle">
+        nosso universo 🌌
+    </h2>
 
-            <div class="final-symbol">
-                💜
-            </div>
+    <div
+        class="planet planet1"
+        onclick="planetMessage(1)">
+    </div>
 
-            <h2 class="final-title">
-                Minha princesa
-            </h2>
+    <div
+        class="planet planet2"
+        onclick="planetMessage(2)">
+    </div>
 
-            <div class="month">
-                nosso primeiro mês
-            </div>
+    <div
+        class="planet planet3"
+        onclick="planetMessage(3)">
+    </div>
 
-            <p class="final-text">
-                Um mês pode parecer pouco tempo,
-                mas já foi suficiente para criar
-                momentos que eu vou guardar com
-                muito carinho.
-                <br><br>
+    <div class="universeHint">
+        clica nos planetas... 👀
+    </div>
 
-                Quero continuar criando muitos
-                outros momentos especiais com você.
-            </p>
+    <div
+        class="asteroid"
+        style="animation-duration:7s;top:10%">
+    </div>
+
+    <div
+        class="asteroid"
+        style="animation-duration:11s;top:35%;animation-delay:2s">
+    </div>
+
+    <div
+        class="asteroid"
+        style="animation-duration:9s;top:65%;animation-delay:4s">
+    </div>
+
+    <button
+        class="nextBtn"
+        style="position:absolute;bottom:3%;z-index:7"
+        onclick="goTo(4)"
+    >
+        continuar ✨
+    </button>
+
+</section>
+
+
+<!-- ================= CONSTELAÇÃO ================= -->
+
+<section id="constellation" class="screen">
+
+    <h2 class="constellationTitle">
+        nossa constelação ✨
+    </h2>
+
+    <canvas id="constellationCanvas"></canvas>
+
+    <div class="constellationHint">
+        toca nas estrelas... algumas escondem segredos 👀✨
+    </div>
+
+
+    <!-- ALIEN -->
+
+    <div class="alien" id="alien">
+
+        👽
+
+        <div class="alienBubble">
+            EIII, CLICA EM MIMMM! 👀
+        </div>
+
+    </div>
+
+
+    <!-- MENSAGEM DO ALIEN -->
+
+    <div class="alienMessage" id="alienMessage">
+
+        <div class="alienMessageBox">
+
+            👽💜
+
+            <br><br>
+
+            Seu namorado te ama muito, hein?
+
+            <br><br>
+
+            Ele já contou pra todas as galáxias! 🌌💜
+
+            <br><br>
+
+            <button onclick="closeAlienMessage()">
+                AAAAA 😭💜
+            </button>
 
         </div>
 
-        <br>
-
-        <button class="button" onclick="nextPage()">
-            Última página ✨
-        </button>
-
-    </section>
+    </div>
 
 
-    <!-- PÁGINA 5 -->
+    <button
+        class="nextBtn"
+        style="position:absolute;bottom:3%;z-index:20"
+        onclick="goTo(5)"
+    >
+        tem mais uma coisa... 🎁
+    </button>
 
-    <section class="page" id="page5">
+</section>
 
-        <div class="final-card">
 
-            <div class="final-symbol">
-                💗
-            </div>
+<!-- ================= PRESENTE ================= -->
 
-            <h2 class="final-title">
-                Eu te amo
-            </h2>
+<section id="giftScreen" class="screen">
 
-            <p class="final-text">
-                Minha princesa, obrigado por fazer
-                parte dos meus dias.
-                <br><br>
+    <h2
+        style="
+        position:absolute;
+        top:8%;
+        color:#e2b7ff;
+        "
+    >
+        tem um presente pra você 🎁
+    </h2>
 
-                Que esse seja apenas o começo de
-                muitos momentos felizes.
-                <br><br>
+    <div
+        class="gift"
+        id="gift"
+        onclick="openGift()"
+    >
 
-                <strong>
-                    Feliz 1 mês. 💜
-                </strong>
-            </p>
+        <div class="tulip">
+            🌷
+        </div>
+
+        <div class="giftLid">
+
+            <div class="giftRibbon"></div>
 
         </div>
 
-    </section>
+        <div class="giftBox"></div>
 
-</div>
+    </div>
+
+    <div class="giftHint">
+        toca no presente 💜
+    </div>
+
+    <!-- FRASE QUE APARECE QUANDO A FLOR SOBE -->
+
+    <div
+        class="giftLoveMessage"
+        id="giftLoveMessage"
+    >
+        você é uma das coisas<br>
+        mais lindas que já aconteceu na minha vida. 💜
+    </div>
+
+    <button
+        class="nextBtn"
+        style="margin-top:60px"
+        onclick="goTo(6)"
+    >
+        última surpresa ✨
+    </button>
+
+</section>
+
+
+<!-- ================= FINAL ================= -->
+
+<section id="finalScreen" class="screen">
+
+    <div
+        class="secretStar"
+        onclick="showSecret()"
+    >
+        ⭐
+    </div>
+
+    <h1 class="finalTitle">
+        feliz 1 mês 💜
+    </h1>
+
+    <p class="finalText">
+
+        E se você chegou até aqui...
+        quero que saiba que cada detalhe dessa página foi feito
+        pensando em você.
+
+        <br><br>
+
+        Obrigado por fazer parte dos meus dias.
+
+        <br><br>
+
+        Minha princesa, esse é só o primeiro capítulo. 💜
+
+    </p>
+
+    <button
+        class="musicBtn"
+        onclick="window.open(
+        'https://open.spotify.com/track/6fPALIGFkjmlHKuiiZLRl6?si=G7Og25WcTbWGmBRZvtVrkg&utm_source=copy-link&rowId=258e12b2e57f2033',
+        '_blank'
+        )"
+    >
+        🎵 uma música pra você
+    </button>
+
+    <div class="meteorText">
+        clica e terá uma surpresa... ✨
+    </div>
+
+    <button
+        class="nextBtn"
+        onclick="goTo(0)"
+    >
+        ver de novo 💜
+    </button>
+
+
+    <div
+        class="secretMessage"
+        id="secretMessage"
+        onclick="this.classList.remove('show')"
+    >
+
+        <div class="secretBox">
+
+            se você encontrou isso...
+
+            <br><br>
+
+            então descobriu meu pequeno segredo. 👀💜
+
+            <br><br>
+
+            eu te amo, minha princesa.
+
+        </div>
+
+    </div>
+
+</section>
 
 
 <script>
 
-/* =========================
-   INTRO
-========================= */
+/* =====================================================
+   ESTRELAS DO FUNDO
+   ===================================================== */
 
-const phrases = [
-    "eu te amo 💜",
-    "você deixa meus dias mais especiais ✨",
-    "eu amo conversar com você 🥹",
-    "cada momento com você é importante para mim 💕",
-    "seu sorriso consegue melhorar meu dia 🌷",
-    "eu sou muito feliz por ter você na minha vida 💜",
-    "você é uma pessoa muito especial para mim ✨",
-    "eu quero guardar muitos momentos ao seu lado 🌙",
-    "obrigado por cada risada e cada conversa 🫶",
-    "esse primeiro mês foi muito especial 💗",
-    "que venham muitos outros momentos incríveis juntos ✨",
-    "minha princesa, essa surpresa é para você 💜"
+const stars =
+    document.getElementById("stars");
+
+for(let i=0;i<140;i++){
+
+    const star =
+        document.createElement("div");
+
+    star.className="star";
+
+    star.style.left =
+        Math.random()*100+"%";
+
+    star.style.top =
+        Math.random()*100+"%";
+
+    star.style.animationDelay =
+        Math.random()*3+"s";
+
+    stars.appendChild(star);
+}
+
+
+/* =====================================================
+   TROCA DE TELAS
+   ===================================================== */
+
+const screens = [
+    "intro",
+    "heartScreen",
+    "letterScreen",
+    "universe",
+    "constellation",
+    "giftScreen",
+    "finalScreen"
 ];
 
-let phraseIndex = 0;
+function goTo(number){
 
-const introPhrase = document.getElementById("introPhrase");
+    document
+        .querySelectorAll(".screen")
+        .forEach(s=>{
+            s.classList.remove("active");
+        });
 
-function changePhrase() {
+    document
+        .getElementById(screens[number])
+        .classList.add("active");
 
-    introPhrase.style.opacity = "0";
-    introPhrase.style.transform = "translateY(15px)";
 
-    setTimeout(() => {
+    if(number===1){
 
-        phraseIndex++;
+        resetHeart();
 
-        if (phraseIndex >= phrases.length) {
-            phraseIndex = phrases.length - 1;
+    }
+
+
+    if(number===4){
+
+        startConstellation();
+
+    }
+
+}
+
+
+/* =====================================================
+   CORAÇÃO DE PARTÍCULAS
+   ===================================================== */
+
+const heartCanvas =
+    document.getElementById("heartCanvas");
+
+const heartCtx =
+    heartCanvas.getContext("2d");
+
+let heartParticles=[];
+let heartSparks=[];
+let shockwaves=[];
+
+let heartState="idle";
+let heartStartTime=0;
+
+function resizeHeart(){
+
+    heartCanvas.width =
+        window.innerWidth;
+
+    heartCanvas.height =
+        window.innerHeight;
+}
+
+window.addEventListener(
+    "resize",
+    resizeHeart
+);
+
+resizeHeart();
+
+
+function createHeart(){
+
+    heartParticles=[];
+
+    const amount=1900;
+
+    for(let i=0;i<amount;i++){
+
+        const t =
+            Math.random()*Math.PI*2;
+
+        const scale =
+            Math.min(
+                window.innerWidth,
+                window.innerHeight
+            )/38;
+
+
+        const x =
+            16*Math.pow(
+                Math.sin(t),
+                3
+            );
+
+
+        const y =
+            -(
+                13*Math.cos(t)
+                -5*Math.cos(2*t)
+                -2*Math.cos(3*t)
+                -Math.cos(4*t)
+            );
+
+
+        const spread =
+            (Math.random()-.5)*1.8;
+
+
+        const px =
+            x*scale+spread;
+
+        const py =
+            y*scale+spread;
+
+
+        heartParticles.push({
+
+            baseX:px,
+            baseY:py,
+
+            x:px,
+            y:py,
+
+            vx:0,
+            vy:0,
+
+            size:
+                Math.random()*1.7+.5,
+
+            alpha:1,
+
+            hue:
+                270+
+                Math.random()*45,
+
+            twinkle:
+                Math.random()*Math.PI*2
+
+        });
+
+    }
+
+}
+
+
+function resetHeart(){
+
+    heartState="idle";
+
+    heartStartTime =
+        performance.now();
+
+    heartSparks=[];
+    shockwaves=[];
+
+    createHeart();
+
+    document
+        .getElementById("heartTitle")
+        .style.opacity="1";
+
+    document
+        .getElementById("heartHint")
+        .style.opacity="1";
+}
+
+
+function drawHeart(time){
+
+    heartCtx.clearRect(
+        0,
+        0,
+        heartCanvas.width,
+        heartCanvas.height
+    );
+
+
+    const centerX =
+        heartCanvas.width/2;
+
+    const centerY =
+        heartCanvas.height/2;
+
+
+    if(
+        heartState!=="exploding"
+    ){
+
+        const glow =
+            heartCtx.createRadialGradient(
+                centerX,
+                centerY,
+                20,
+                centerX,
+                centerY,
+                230
+            );
+
+        glow.addColorStop(
+            0,
+            "rgba(190,80,255,.20)"
+        );
+
+        glow.addColorStop(
+            1,
+            "rgba(0,0,0,0)"
+        );
+
+        heartCtx.fillStyle=glow;
+
+        heartCtx.fillRect(
+            centerX-250,
+            centerY-250,
+            500,
+            500
+        );
+
+    }
+
+
+    if(
+        heartState==="idle" ||
+        heartState==="charging"
+    ){
+
+        let pulse =
+            1+
+            Math.sin(time*.003)*.06+
+            Math.sin(time*.008)*.025;
+
+
+        if(
+            heartState==="charging"
+        ){
+
+            const chargeTime =
+                time-heartStartTime;
+
+            pulse =
+                1+
+                Math.sin(chargeTime*.06)*.12+
+                Math.sin(chargeTime*.15)*.035;
         }
 
-        introPhrase.textContent = phrases[phraseIndex];
 
-        introPhrase.style.opacity = "1";
-        introPhrase.style.transform = "translateY(0)";
+        heartCtx.globalCompositeOperation=
+            "lighter";
 
-    }, 650);
+
+        heartParticles.forEach(p=>{
+
+            const x =
+                centerX+
+                p.baseX*pulse;
+
+            const y =
+                centerY+
+                p.baseY*pulse;
+
+
+            const twinkle =
+                .7+
+                Math.sin(
+                    time*.004+
+                    p.twinkle
+                )*.3;
+
+
+            heartCtx.beginPath();
+
+            heartCtx.arc(
+                x,
+                y,
+                p.size*
+                (
+                    heartState==="charging"
+                    ?1.4
+                    :1
+                ),
+                0,
+                Math.PI*2
+            );
+
+
+            heartCtx.fillStyle =
+                `hsla(
+                    ${p.hue},
+                    100%,
+                    75%,
+                    ${heartState==="charging"
+                    ?1
+                    :twinkle}
+                )`;
+
+
+            heartCtx.fill();
+
+        });
+
+
+        heartCtx.globalCompositeOperation=
+            "source-over";
+
+    }
+
+
+    if(
+        heartState==="exploding"
+    ){
+
+        heartCtx.globalCompositeOperation=
+            "lighter";
+
+
+        heartParticles.forEach(p=>{
+
+            p.x += p.vx;
+            p.y += p.vy;
+
+            p.vx *= .985;
+            p.vy *= .985;
+
+            p.vy += .015;
+
+            p.alpha -= .008;
+
+            p.size *= .997;
+
+
+            if(p.alpha>0){
+
+                heartCtx.beginPath();
+
+                heartCtx.arc(
+                    p.x,
+                    p.y,
+                    Math.max(.3,p.size),
+                    0,
+                    Math.PI*2
+                );
+
+                heartCtx.fillStyle =
+                    `hsla(
+                        ${p.hue},
+                        100%,
+                        75%,
+                        ${p.alpha}
+                    )`;
+
+                heartCtx.fill();
+
+            }
+
+        });
+
+
+        heartSparks.forEach(s=>{
+
+            s.x += s.vx;
+            s.y += s.vy;
+
+            s.vx *= .97;
+            s.vy *= .97;
+
+            s.alpha -= .018;
+
+
+            if(s.alpha>0){
+
+                heartCtx.beginPath();
+
+                heartCtx.arc(
+                    s.x,
+                    s.y,
+                    s.size,
+                    0,
+                    Math.PI*2
+                );
+
+                heartCtx.fillStyle =
+                    `rgba(
+                        255,
+                        220,
+                        255,
+                        ${s.alpha}
+                    )`;
+
+                heartCtx.fill();
+
+            }
+
+        });
+
+
+        shockwaves.forEach(w=>{
+
+            w.radius += 8;
+
+            w.alpha *= .94;
+
+
+            heartCtx.beginPath();
+
+            heartCtx.arc(
+                centerX,
+                centerY,
+                w.radius,
+                0,
+                Math.PI*2
+            );
+
+            heartCtx.strokeStyle =
+                `rgba(
+                    220,
+                    150,
+                    255,
+                    ${w.alpha}
+                )`;
+
+            heartCtx.lineWidth=3;
+
+            heartCtx.stroke();
+
+        });
+
+
+        heartCtx.globalCompositeOperation=
+            "source-over";
+    }
+
 }
 
-const phraseInterval = setInterval(() => {
 
-    if (phraseIndex < phrases.length - 1) {
-        changePhrase();
-    }
+function explodeHeart(){
 
-}, 2300);
+    if(heartState!=="idle")
+        return;
 
 
-/* =========================
-   SAIR DA INTRO
-========================= */
+    heartState="charging";
 
-setTimeout(() => {
-
-    clearInterval(phraseInterval);
-
-    document.getElementById("intro").classList.add("hidden");
-
-}, 22500);
+    heartStartTime =
+        performance.now();
 
 
-/* =========================
-   NAVEGAÇÃO
-========================= */
+    const centerX =
+        heartCanvas.width/2;
 
-let currentPage = 1;
+    const centerY =
+        heartCanvas.height/2;
 
-function nextPage() {
 
-    const current = document.getElementById(
-        "page" + currentPage
-    );
+    setTimeout(()=>{
 
-    current.classList.remove("active");
+        if(
+            heartState!=="charging"
+        )
+            return;
 
-    currentPage++;
 
-    const next = document.getElementById(
-        "page" + currentPage
-    );
+        heartState="exploding";
 
-    if (next) {
-        next.classList.add("active");
-    }
 
-    if (currentPage === 5) {
-        startHearts();
-    }
+        document
+            .getElementById("heartTitle")
+            .style.opacity="0";
+
+        document
+            .getElementById("heartHint")
+            .style.opacity="0";
+
+
+        heartParticles.forEach(p=>{
+
+            const x=p.baseX;
+            const y=p.baseY;
+
+
+            const angle =
+                Math.atan2(y,x)
+                +
+                (Math.random()-.5)*.3;
+
+
+            const distance =
+                Math.sqrt(x*x+y*y);
+
+
+            const speed =
+                4+
+                Math.random()*8+
+                distance*.025;
+
+
+            p.x =
+                centerX+x;
+
+            p.y =
+                centerY+y;
+
+
+            p.vx =
+                Math.cos(angle)*speed;
+
+            p.vy =
+                Math.sin(angle)*speed;
+
+
+            p.alpha=1;
+
+            p.size =
+                Math.random()*2+1;
+
+        });
+
+
+        heartSparks=[];
+
+
+        for(let i=0;i<380;i++){
+
+            const angle =
+                Math.random()*Math.PI*2;
+
+            const speed =
+                3+
+                Math.random()*13;
+
+
+            heartSparks.push({
+
+                x:centerX,
+                y:centerY,
+
+                vx:
+                    Math.cos(angle)*speed,
+
+                vy:
+                    Math.sin(angle)*speed,
+
+                size:
+                    Math.random()*2.5+.5,
+
+                alpha:1
+
+            });
+
+        }
+
+
+        shockwaves.push({
+            radius:10,
+            alpha:1
+        });
+
+        shockwaves.push({
+            radius:30,
+            alpha:.8
+        });
+
+
+        setTimeout(()=>{
+
+            goTo(2);
+
+        },1500);
+
+
+    },350);
+
 }
 
 
-/* =========================
-   PRESENTE
-========================= */
+heartCanvas.addEventListener(
+    "pointerdown",
+    explodeHeart,
+    {passive:true}
+);
 
-function openGift() {
 
-    const gift = document.getElementById("gift");
+function heartLoop(time){
+
+    drawHeart(time);
+
+    requestAnimationFrame(
+        heartLoop
+    );
+}
+
+heartLoop(0);
+
+
+/* =====================================================
+   PLANETAS
+   ===================================================== */
+
+function planetMessage(number){
+
+    const messages={
+
+        1:
+        "Esse planeta guarda todos os momentos que eu quero viver com você. 💜",
+
+        2:
+        "Se o universo fosse infinito, ainda assim eu escolheria encontrar você. ✨",
+
+        3:
+        "E esse pequeno planeta guarda um segredo: você é muito especial pra mim. 🌌"
+
+    };
+
+
+    alert(
+        messages[number]
+    );
+}
+
+
+/* =====================================================
+   CONSTELAÇÃO TURBINADA
+   ===================================================== */
+
+const constellationCanvas =
+    document.getElementById(
+        "constellationCanvas"
+    );
+
+const constellationCtx =
+    constellationCanvas.getContext("2d");
+
+let constellationStars=[];
+let constellationParticles=[];
+
+function resizeConstellation(){
+
+    constellationCanvas.width =
+        window.innerWidth;
+
+    constellationCanvas.height =
+        window.innerHeight;
+}
+
+window.addEventListener(
+    "resize",
+    resizeConstellation
+);
+
+resizeConstellation();
+
+
+const starMessages=[
+
+    "Essa estrela representa um dos motivos que fazem você ser tão especial pra mim. 💜",
+
+    "Se eu pudesse escolher uma estrela no céu, ainda escolheria você. ✨",
+
+    "Essa aqui guarda um desejo: viver muitos outros momentos com você. 🌌",
+
+    "Tem bilhões de estrelas no universo... e mesmo assim você conseguiu ser a minha favorita. 💜",
+
+    "Essa estrela é pequena, mas o carinho que ela guarda é gigante. 🥹",
+
+    "Você conseguiu iluminar um cantinho da minha vida que eu nem sabia que precisava de luz. ✨",
+
+    "Uma estrela encontrada! Recompensa: um monte de amor. 💜",
+
+    "Essa é uma estrela secreta... mas agora você descobriu. 👀✨",
+
+    "Até o céu ficou com inveja do brilho que você tem. 🌌💜",
+
+    "Essa estrela tem uma missão: lembrar você que é muito importante pra mim. ⭐",
+
+    "Mais uma estrela descoberta... mas ainda tem algumas escondidas. 👀",
+
+    "Nosso universo ficou muito mais bonito depois que você apareceu nele. 💜"
+
+];
+
+
+function startConstellation(){
+
+    constellationStars=[];
+    constellationParticles=[];
+
+
+    const cx =
+        window.innerWidth/2;
+
+    const cy =
+        window.innerHeight/2;
+
+
+    const scale =
+        Math.min(
+            window.innerWidth,
+            window.innerHeight
+        )/34;
+
+
+    for(let i=0;i<18;i++){
+
+        const t =
+            (Math.PI*2/18)*i;
+
+
+        const x =
+            16*Math.pow(
+                Math.sin(t),
+                3
+            );
+
+
+        const y =
+            -(
+                13*Math.cos(t)
+                -5*Math.cos(2*t)
+                -2*Math.cos(3*t)
+                -Math.cos(4*t)
+            );
+
+
+        constellationStars.push({
+
+            x:
+                cx+
+                x*scale,
+
+            y:
+                cy+
+                y*scale,
+
+            r:
+                Math.random()*2.5+2,
+
+            pulse:
+                Math.random()*Math.PI*2,
+
+            message:
+                starMessages[
+                    i%
+                    starMessages.length
+                ],
+
+            clicked:false
+
+        });
+
+    }
+
+}
+
+
+function createStarExplosion(x,y){
+
+    for(let i=0;i<40;i++){
+
+        const angle =
+            Math.random()*Math.PI*2;
+
+        const speed =
+            Math.random()*5+2;
+
+
+        constellationParticles.push({
+
+            x:x,
+            y:y,
+
+            vx:
+                Math.cos(angle)*speed,
+
+            vy:
+                Math.sin(angle)*speed,
+
+            alpha:1,
+
+            size:
+                Math.random()*3+1
+
+        });
+
+    }
+
+}
+
+
+function animateConstellation(){
+
+    constellationCtx.clearRect(
+        0,
+        0,
+        constellationCanvas.width,
+        constellationCanvas.height
+    );
+
+
+    constellationCtx.beginPath();
+
+    constellationCtx.strokeStyle =
+        "rgba(207,135,255,.42)";
+
+    constellationCtx.lineWidth=1.3;
+
+
+    constellationStars.forEach(
+        (star,i)=>{
+
+            if(i===0){
+
+                constellationCtx.moveTo(
+                    star.x,
+                    star.y
+                );
+
+            }else{
+
+                constellationCtx.lineTo(
+                    star.x,
+                    star.y
+                );
+
+            }
+
+        }
+    );
+
+
+    if(
+        constellationStars.length
+    ){
+
+        constellationCtx.lineTo(
+            constellationStars[0].x,
+            constellationStars[0].y
+        );
+
+    }
+
+
+    constellationCtx.stroke();
+
+
+    constellationStars.forEach(
+        (star,i)=>{
+
+            const pulse =
+                1+
+                Math.sin(
+                    Date.now()*.004+
+                    star.pulse
+                )*.35;
+
+
+            constellationCtx.beginPath();
+
+            constellationCtx.arc(
+                star.x,
+                star.y,
+                star.r*pulse,
+                0,
+                Math.PI*2
+            );
+
+
+            constellationCtx.shadowBlur =
+                star.clicked
+                ?40
+                :20;
+
+
+            constellationCtx.shadowColor =
+                star.clicked
+                ?"#ffffff"
+                :"#bd4cff";
+
+
+            constellationCtx.fillStyle =
+                star.clicked
+                ?"#ffffff"
+                :"#eac4ff";
+
+
+            constellationCtx.fill();
+
+            constellationCtx.shadowBlur=0;
+
+
+            if(star.clicked){
+
+                constellationCtx.beginPath();
+
+                constellationCtx.arc(
+                    star.x,
+                    star.y,
+                    star.r*5*pulse,
+                    0,
+                    Math.PI*2
+                );
+
+                constellationCtx.fillStyle =
+                    "rgba(205,100,255,.13)";
+
+                constellationCtx.fill();
+
+            }
+
+        }
+    );
+
+
+    constellationParticles.forEach(p=>{
+
+        p.x += p.vx;
+        p.y += p.vy;
+
+        p.vx *= .96;
+        p.vy *= .96;
+
+        p.alpha -= .025;
+
+
+        if(p.alpha>0){
+
+            constellationCtx.beginPath();
+
+            constellationCtx.arc(
+                p.x,
+                p.y,
+                p.size,
+                0,
+                Math.PI*2
+            );
+
+            constellationCtx.fillStyle =
+                `rgba(
+                    225,
+                    170,
+                    255,
+                    ${p.alpha}
+                )`;
+
+            constellationCtx.fill();
+
+        }
+
+    });
+
+
+    constellationParticles =
+        constellationParticles.filter(
+            p=>p.alpha>0
+        );
+
+
+    requestAnimationFrame(
+        animateConstellation
+    );
+
+}
+
+animateConstellation();
+
+
+constellationCanvas.addEventListener(
+    "pointerdown",
+    function(e){
+
+        const rect =
+            constellationCanvas
+            .getBoundingClientRect();
+
+
+        const x =
+            e.clientX-
+            rect.left;
+
+        const y =
+            e.clientY-
+            rect.top;
+
+
+        constellationStars.forEach(
+            star=>{
+
+                const distance =
+                    Math.hypot(
+                        x-star.x,
+                        y-star.y
+                    );
+
+
+                if(distance<30){
+
+                    star.clicked=true;
+
+
+                    createStarExplosion(
+                        star.x,
+                        star.y
+                    );
+
+
+                    setTimeout(()=>{
+
+                        alert(
+                            star.message
+                        );
+
+                    },250);
+
+
+                    setTimeout(()=>{
+
+                        star.clicked=false;
+
+                    },1200);
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+/* =====================================================
+   ALIEN 👽
+   ===================================================== */
+
+const alien =
+    document.getElementById("alien");
+
+
+alien.addEventListener(
+    "pointerdown",
+    function(e){
+
+        e.stopPropagation();
+
+        talkToAlien();
+
+    }
+);
+
+
+function talkToAlien(){
+
+    if(
+        alien.classList.contains("caught")
+    )
+        return;
+
+
+    alien.classList.add("caught");
+
+
+    setTimeout(()=>{
+
+        document
+            .getElementById("alienMessage")
+            .classList.add("show");
+
+    },1000);
+
+}
+
+
+function closeAlienMessage(){
+
+    document
+        .getElementById("alienMessage")
+        .classList.remove("show");
+
+
+    alien.classList.remove("caught");
+
+
+    alien.style.left="-15%";
+    alien.style.top="25%";
+
+
+    setTimeout(()=>{
+
+        alien.style.left="";
+        alien.style.top="";
+
+    },100);
+
+}
+
+
+/* =====================================================
+   PRESENTE + CHUVA DE CORAÇÕES 💜
+   ===================================================== */
+
+let giftOpened=false;
+
+function createFallingHeart(){
+
+    const heart =
+        document.createElement("div");
+
+    heart.className="giftHeart";
+
+    heart.innerHTML =
+        Math.random()>.35
+        ? "💜"
+        : "💗";
+
+
+    heart.style.left =
+        Math.random()*100+"%";
+
+    heart.style.fontSize =
+        (14+Math.random()*22)+"px";
+
+    heart.style.animationDuration =
+        (3+Math.random()*4)+"s";
+
+    heart.style.animationDelay =
+        Math.random()*.8+"s";
+
+    heart.style.setProperty(
+        "--drift",
+        (-100+Math.random()*200)+"px"
+    );
+
+    document
+        .getElementById("giftScreen")
+        .appendChild(heart);
+
+
+    setTimeout(()=>{
+
+        heart.remove();
+
+    },8000);
+
+}
+
+
+function heartRain(){
+
+    /* primeira explosão */
+
+    for(let i=0;i<35;i++){
+
+        setTimeout(()=>{
+
+            createFallingHeart();
+
+        },i*45);
+
+    }
+
+
+    /* chuva contínua */
+
+    const rainInterval =
+        setInterval(()=>{
+
+            if(
+                !document
+                .getElementById("giftScreen")
+                .classList.contains("active")
+            ){
+
+                clearInterval(rainInterval);
+                return;
+
+            }
+
+            for(let i=0;i<4;i++){
+
+                createFallingHeart();
+
+            }
+
+        },350);
+
+
+    setTimeout(()=>{
+
+        clearInterval(rainInterval);
+
+    },9000);
+
+}
+
+
+function openGift(){
+
+    if(giftOpened)
+        return;
+
+    giftOpened=true;
+
+
+    const gift =
+        document.getElementById("gift");
+
 
     gift.classList.add("open");
 
-    document.getElementById("giftMessage").style.opacity = "1";
+
+    /* espera a flor começar a subir */
+
+    setTimeout(()=>{
+
+        document
+            .getElementById("giftLoveMessage")
+            .classList.add("show");
+
+
+        heartRain();
+
+    },650);
+
 }
 
 
-/* =========================
-   CORAÇÕES
-========================= */
+/* =====================================================
+   SEGREDO FINAL
+   ===================================================== */
 
-let heartsStarted = false;
+function showSecret(){
 
-function createHeart() {
+    document
+        .getElementById("secretMessage")
+        .classList.add("show");
 
-    const heart = document.createElement("div");
-
-    heart.className = "falling";
-
-    const hearts = ["💜", "💗", "💕", "✨"];
-
-    heart.textContent =
-        hearts[Math.floor(Math.random() * hearts.length)];
-
-    heart.style.left =
-        Math.random() * 100 + "vw";
-
-    heart.style.fontSize =
-        (14 + Math.random() * 22) + "px";
-
-    heart.style.animationDuration =
-        (3 + Math.random() * 4) + "s";
-
-    document.body.appendChild(heart);
-
-    setTimeout(() => {
-        heart.remove();
-    }, 7500);
-}
-
-function startHearts() {
-
-    if (heartsStarted) return;
-
-    heartsStarted = true;
-
-    setInterval(createHeart, 300);
 }
 
 </script>
 
 </body>
 </html>
+```
